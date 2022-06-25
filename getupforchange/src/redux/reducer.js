@@ -1,4 +1,4 @@
-import {LOGIN_SUCCESS, LOGOUT} from "./action"
+import {LOGIN_SUCCESS} from "./action"
 import { combineReducers } from "redux";
 
 const initState = {
