@@ -23,7 +23,7 @@ export const Register = () => {
       })
       .catch((err) => {
         console.log(err.message)
-        alert("Try again ");
+        alert("Try another Email");
       });
   };
 
