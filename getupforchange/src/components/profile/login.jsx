@@ -17,7 +17,7 @@ export const Login = () => {
 
   const onSubmit = (data) => {
     axios
-      .post("https://ecommerce-shopping-project.herokuapp.com/user/login", data)
+      .post("http://localhost:8000/user/login", data)
       .then((res) => {
         console.log("before", res.data);
         if (res.data.status === "false") {
@@ -26,7 +26,7 @@ export const Login = () => {
           dispatch(loginSuccess(res.data));
           console.log("after", res.data);
           setTimeout(() => {
-            navigate("/");
+            navigate("/noticeboard");
           }, 1000);
         }
       })
@@ -34,7 +34,7 @@ export const Login = () => {
         return alert("Enter Correct Details");
       });
   };
-  
+
   return (
     <>
       <section className="h-100 h-custom">
@@ -67,9 +67,9 @@ export const Login = () => {
                         type="password"
                         id="form3Example4cg"
                         className="form-control form-control-lg"
-                        {...register("password", { required: true })}
-                        required
+                        {...register("password", { required: true,minLength:8 })}
                       />
+                      {errors.password && "Enter valid password"}
                     </div>
 
                     <div className="d-flex justify-content-center">

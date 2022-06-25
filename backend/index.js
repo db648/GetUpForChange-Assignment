@@ -8,8 +8,10 @@ var cors = require("cors");
 app.use(cors());
 
 const user_controller = require("./src/controllers/user_controller");
+const notice_controller = require("./src/controllers/notice_controllers")
 
 app.use("/user", user_controller);
+app.use("/notice", notice_controller);
 
 const PORT = process.env.PORT || 3001;
 

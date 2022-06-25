@@ -15,14 +15,15 @@ export const Register = () => {
   const onSubmit = (data) => {
     console.log("submit", data);
     axios
-      .post("https://ecommerce-shopping-project.herokuapp.com/user/register", data)
+      .post("http://localhost:8000/user/register", data)
       .then((res) => {
         setTimeout(() => {
           navigate("/login");
         }, 1000);
       })
       .catch((err) => {
-        alert("Enter Correct Details");
+        console.log(err.message)
+        alert("Try again ");
       });
   };
 
@@ -33,12 +34,6 @@ export const Register = () => {
           <div className="row d-flex justify-content-center align-items-center h-100">
             <div className="col-lg-8 col-xl-6">
               <div className="card rounded-3">
-                <img
-                  src="https://prod-img.thesouledstore.com/public/theSoul/uploads/slider/20220513000555.jpg?format=webp&w=1366&dpr=1.0"
-                  className="w-100"
-                  alt="Sample photo"
-                />
-
                 <div className="card-body p-4 p-md-5">
                   <h2 className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">
                     Create New Account
@@ -53,8 +48,9 @@ export const Register = () => {
                         type="text"
                         id="form3Example1cg"
                         className="form-control form-control-lg"
-                        {...register("username", { required: true })}
+                        {...register("username", { required: true,minLength:3 })}
                       />
+                      {errors.username && "Enter valid name"}
                     </div>
 
                     <div className="form-outline mb-4">
@@ -67,6 +63,7 @@ export const Register = () => {
                         className="form-control form-control-lg"
                         {...register("email", { required: true })}
                       />
+                      {errors.email && "Enter valid email"}
                     </div>
 
                     <div className="form-outline mb-4">
@@ -77,8 +74,9 @@ export const Register = () => {
                         type="password"
                         id="form3Example4cg"
                         className="form-control form-control-lg"
-                        {...register("password", { required: true })}
+                        {...register("password", { required: true,minLength:8 })}
                       />
+                      {errors.password && "Enter valid password"}
                     </div>
 
                     <div className="d-flex justify-content-center">

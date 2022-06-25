@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 
 function verify(req, res, next) {
   const authHeader = req.headers.authorization;
-  // console.log(authHeader)
+   console.log(authHeader)
   if (authHeader ) {
     const token = authHeader.split(" ")[1];
 
@@ -12,7 +12,7 @@ function verify(req, res, next) {
       next();
     });
   } else {
-    return res.status(401).json("You are not authenticated!");
+    return res.status(401).send("You are not authenticated!");
   }
 }
 

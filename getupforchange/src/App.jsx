@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux'
 import { Route, Routes } from 'react-router-dom'
 import './App.css'
 import { NoticeBoard } from './components/noticeboard/notice'
@@ -9,6 +10,7 @@ function App() {
   console.log("user",user)
   return (
     <div className="App">
+      <NoticeBoard />
       <Routes>
           <Route exact path='/login' element={ <Login/> } />
           <Route exact path='/register' element={ <Register /> } />
