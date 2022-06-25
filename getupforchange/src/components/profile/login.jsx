@@ -19,16 +19,10 @@ export const Login = () => {
     axios
       .post("http://localhost:8000/user/login", data)
       .then((res) => {
-        console.log("before", res.data);
-        if (res.data.status === "false") {
-          return alert("Enter Correct Details");
-        } else {
-          dispatch(loginSuccess(res.data));
-          console.log("after", res.data);
-          setTimeout(() => {
-            navigate("/noticeboard");
-          }, 1000);
-        }
+        dispatch(loginSuccess(res.data));
+        setTimeout(() => {
+          navigate("/noticeboard");
+        }, 200);
       })
       .catch((err) => {
         return alert("Enter Correct Details");

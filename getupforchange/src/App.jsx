@@ -10,8 +10,8 @@ function App() {
   console.log("user",user)
   return (
     <div className="App">
-      <NoticeBoard />
       <Routes>
+          <Route path='/' element={ <Login/> } />
           <Route exact path='/login' element={ <Login/> } />
           <Route exact path='/register' element={ <Register /> } />
           <Route exact path='/noticeboard' element={ user ? <NoticeBoard /> : <Login /> } />

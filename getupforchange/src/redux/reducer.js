@@ -1,4 +1,4 @@
-import {LOGIN_SUCCESS} from "./action"
+import {LOGIN_SUCCESS, LOGOUT} from "./action"
 import { combineReducers } from "redux";
 
 const initState = {
@@ -9,6 +9,13 @@ export const AuthReducer = (state=initState, {type, payload}) => {
     switch(type) {
         case LOGIN_SUCCESS : 
             localStorage.setItem("login_details", JSON.stringify(payload));
+            return { 
+                ...state, 
+                loginUser : payload 
+            }
+
+        case LOGOUT :
+            localStorage.setItem("login_details", payload);
             return { 
                 ...state, 
                 loginUser : payload 
