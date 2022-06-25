@@ -15,7 +15,7 @@ export const AuthReducer = (state=initState, {type, payload}) => {
             }
 
         case LOGOUT :
-            localStorage.setItem("login_details", payload);
+            localStorage.removeItem("login_details");
             return { 
                 ...state, 
                 loginUser : payload 
