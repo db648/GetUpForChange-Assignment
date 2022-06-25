@@ -26,7 +26,7 @@ router.get("/",verify, async(req,res) => {
 
 router.patch("/:id",verify, async(req,res) => {
     try{
-        const comment = await Notice.findByIdAndUpdate(req.body)
+        const comment = await Notice.findByIdAndUpdate(req.params.id)
         return res.status(200).send(comment)
     }
     catch(err){
@@ -36,7 +36,7 @@ router.patch("/:id",verify, async(req,res) => {
 
 router.delete("/:id",verify, async(req,res) => {
     try{
-        const comment = await Notice.findByIdAndDelete(req.body)
+        const comment = await Notice.findByIdAndDelete(req.params.id)
         return res.status(200).send(comment)
     }
     catch(err){

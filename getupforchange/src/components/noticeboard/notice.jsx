@@ -1,38 +1,18 @@
 import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { logout } from "../../redux/action";
+import { Textarea } from "../TextareaBox/Textarea";
 
 export const NoticeBoard = () => {
-  const [add, setAdd] = useState("");
+ 
+  const dispatch = useDispatch();
   const userDetails=JSON.parse(localStorage.getItem("login_details"))
-  console.log(userDetails)
+  console.log("userDetails",userDetails)
   const [list, setList] = useState([]);
 
-  const handleClick = () => {
-    console.log(userDetails.accessToken);
-    let body = {
-      username: userDetails.username,
-      user_id : userDetails._id,
-      comment: add,
-      date: new Date(Date.now()).toLocaleString(),
-    };
-    axios
-      .post("http://localhost:8000/notice", body, {
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Content-type": "Application/json",
-          Authorization: `Bearer ${
-            userDetails.accessToken
-          }`,
-        },
-      })
-      .then((res) => {
-        getData();
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
-  };
+ 
 
   const getData = () => {
     axios
@@ -59,9 +39,10 @@ export const NoticeBoard = () => {
     getData();
   }, []);
 
-  const handleEdit = () => {
+
+  const handleDelete = (id) => {
     axios
-      .patch(`http://localhost:8000/notice/${id}`,{
+      .delete(`http://localhost:8000/notice/${id}`,{
         headers: {
           "Access-Control-Allow-Origin": "*",
           "Content-type": "Application/json",
@@ -77,72 +58,46 @@ export const NoticeBoard = () => {
         console.log(err.message);
       });
   }
-  const handleDelete = () => {
-    axios
-      .delete(`http://localhost:8000/notice/${user_id}`,{
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Content-type": "Application/json",
-          Authorization: `Bearer ${
-            userDetails.accessToken
-          }`,
-        },
-      })
-      .then((res) => {
-        getData();
-        console.log("delete",res)
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
+
+  const handleLogout = () => {
+    dispatch(logout(null))
   }
+
   return (
     <>
-      <div className="container">
-      <h2 className="d-flex justify-content-center">Notice Board</h2>
-      <button className="btn btn-info">Logout</button>
+      <div className="container w-75 d-flex justify-content-between">
+        <h2 className="text-success">Notice Board</h2>
+        <button className="btn btn-info" onClick={() => handleLogout()}>Logout</button>
       </div>
 
       <div className="container">
         <div className="row">
-          <div className="col-md-4 m-5">
-            <textarea
-              onChange={(e) => setAdd(e.target.value)}
-              name="text"
-              cols="45"
-              rows="7"
-              placeholder="Enter Text Here"
-            ></textarea>{" "}
-            <br />
-            <button className="btn btn-info" onClick={() => handleClick()}>
-              Submit
-            </button>
-          </div>
-          <div className="col-md-4 m-5">
+         <Textarea getdata={getData} />
+          <div className="col-md-5 m-4">
             {list.map((element, i) => {
               return (
                 <>
-                  <div className="card m-2" key={i}>
+                  <div className="card m-4 p-2" key={i}>
                     <div className="card-title"> <b>{element.username}</b> </div>
-                    <h6 className="card-subtitle mb-2 text-muted">
+                    <p className="card-subtitle mb-2 text-muted">
                       {element.date}
-                    </h6>
+                    </p>
                     <br />
-                    <h6 className="card-subtitle mb-2 text-muted">
+                    <h4 className="card-subtitle mb-2">
                       {element.comment}
-                    </h6>
-
-                {element.user_id===userDetails._id && 
+                    </h4>
+                    <br />
+                   
+                {element.user_id===userDetails._id &&                    
                     <div className="d-flex">
-                      <button className="btn btn-secondary w-50 m-2" onClick={() => handleEdit()} >
-                        edit
-                      </button>
-                      <button className="btn btn-warning w-50 m-2" onClick={() => handleDelete()} >
-                        delete
-                      </button>
+                      
+                        <button className="btn btn-warning w-50 m-2" onClick={(e) => handleDelete(element._id)} >
+                            delete
+                        </button>
                     </div>
                     }
-                  </div>
+                </div>
+
                 </>
               );
             })}
