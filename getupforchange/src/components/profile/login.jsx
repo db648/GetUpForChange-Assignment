@@ -17,7 +17,7 @@ export const Login = () => {
 
   const onSubmit = (data) => {
     axios
-      .post("http://localhost:8000/user/login", data)
+      .post("https://getupforchange-noticeboard.herokuapp.com/user/login", data)
       .then((res) => {
         dispatch(loginSuccess(res.data));
         setTimeout(() => {

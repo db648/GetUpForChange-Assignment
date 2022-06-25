@@ -15,7 +15,7 @@ export const Register = () => {
   const onSubmit = (data) => {
     console.log("submit", data);
     axios
-      .post("http://localhost:8000/user/register", data)
+      .post("https://getupforchange-noticeboard.herokuapp.com/user/register", data)
       .then((res) => {
         setTimeout(() => {
           navigate("/login");

@@ -9,14 +9,11 @@ export const NoticeBoard = () => {
  
   const dispatch = useDispatch();
   const userDetails=JSON.parse(localStorage.getItem("login_details"))
-  console.log("userDetails",userDetails)
   const [list, setList] = useState([]);
-
- 
 
   const getData = () => {
     axios
-      .get("http://localhost:8000/notice", {
+      .get("https://getupforchange-noticeboard.herokuapp.com/notice", {
         headers: {
           "Access-Control-Allow-Origin": "*",
           "Content-type": "Application/json",
@@ -26,9 +23,7 @@ export const NoticeBoard = () => {
         },
       })
       .then((res) => {
-        console.log("data", res);
         let x= res.data.sort((a,b)=>Date.parse(b.date)-Date.parse(a.date));
-        console.log(x)
         setList(x);
       })
       .catch((err) => {
@@ -42,7 +37,7 @@ export const NoticeBoard = () => {
 
   const handleDelete = (id) => {
     axios
-      .delete(`http://localhost:8000/notice/${id}`,{
+      .delete(`https://getupforchange-noticeboard.herokuapp.com/notice/${id}`,{
         headers: {
           "Access-Control-Allow-Origin": "*",
           "Content-type": "Application/json",
