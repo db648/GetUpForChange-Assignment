@@ -2,7 +2,7 @@ import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { loginSuccess } from "../redux/auth-redux/action";
+import { loginSuccess } from "../../redux/action";
 
 export const Login = () => {
   const {
@@ -34,6 +34,7 @@ export const Login = () => {
         return alert("Enter Correct Details");
       });
   };
+  
   return (
     <>
       <section className="h-100 h-custom">
